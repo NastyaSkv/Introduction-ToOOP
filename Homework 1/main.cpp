@@ -14,9 +14,9 @@ public:
 		return(x);
 	}
 
-	void Set_x()
+	void Set_x(double c)
 	{
-		x = 5.4;
+		x = c;
 	}
 
 	double Get_y()
@@ -45,7 +45,7 @@ void main()
 	setlocale(LC_ALL, "");
 	Point A;
 	A.Get_x();
-	A.Set_x();
+	A.Set_x(3.4);
 	A.Print_x();
 
 	A.Get_y();
