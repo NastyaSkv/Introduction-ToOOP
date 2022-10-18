@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿//В класс Point добавить get / set - методы.
+#include<iostream>
 using namespace std;
 
 
