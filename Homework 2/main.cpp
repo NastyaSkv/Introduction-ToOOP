@@ -1,4 +1,5 @@
-﻿//1. Написать метод ? ? ? distance(? ? ? ) который возвращает расстояние до указанной точки;
+﻿/*
+//1. Написать метод ? ? ? distance(? ? ? ) который возвращает расстояние до указанной точки;
 //2. Написать функцию ? ? ? distance(? ? ? ) которая возвращает расстояние между двумя точками;
 #include<iostream>
 #include<cmath>
@@ -48,7 +49,7 @@ public:
 		this->d = d;
 	}
 
-	Point()
+Point()
 	{
 		c = d = double();
 	}
@@ -92,4 +93,5 @@ double distance(double x, double y, double c, double d)
 {
 	double z = sqrt((x - c) * (x - c) + (y - d) * (y - d));
 	return(z);
-}
+
+}*/

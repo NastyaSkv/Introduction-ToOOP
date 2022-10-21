@@ -55,14 +55,31 @@ public:
 	}
 
 	//      METHODS:
+	double distance(Point other)
+	{
+		double x_distance = this->x - other.x;
+		double y_distance = this->y - other.y;
+		double distance = sqrt(x_distance * x_distance + y_distance * y_distance);
+		return distance;
+	}
 	void print()const
 	{
 		cout << "X = " << x << "\tY = " << y << endl;
 	}
 };
 
+double distance(Point A, Point B)
+{
+	double x_distance = A.get_x() - B.get_x();
+	double y_distance = B.get_x() - B.get_x();
+	double distance = sqrt(x_distance*x_distance+y_distance*y_distance);
+	return distance;
+}
+
 //#define STRUCT_POINT
 //#define GET_SET_CHECK
+#define DISTANCE_CHECK
+//#define CONSTRUCTORS_CHECK
 
 void main()
 {
@@ -96,6 +113,16 @@ void main()
 	B.print();
 #endif
 
+	#ifdef DISTANCE_CHECK
+	Point A(2, 3);
+	Point B(5, 7);
+	A.print();
+	B.print();
+	cout << "Расстояние от точки А до точки В: " << A.distance(B) << endl;
+	cout << "Расстояние от точки B до точки A: " << B.distance(A) << endl;
+#endif
+
+#ifdef CONSTRUCTORS_CHECK
 	Point A; //Default constructor
 	A.print();
 
@@ -104,4 +131,5 @@ void main()
 
 	Point C(2, 3);
 	C.print();
+#endif//Homework 2
 }
