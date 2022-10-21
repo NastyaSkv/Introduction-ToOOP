@@ -50,8 +50,7 @@ public:
 
 	Point()
 	{
-		this->c = 0;
-		this->d = 0;
+		c = d = double();
 	}
 	Point(double x, double y)
 	{
