@@ -83,6 +83,13 @@ public:
 		y++;
 		return old;
 	}
+	Point& operator()(double x, double y)
+	{
+		set_x(x);
+		set_y(y);
+		return *this;
+	}
+
 	//      METHODS:
 	double distance(const Point& other)const //const - гарантия безопасности
 	{
@@ -116,12 +123,41 @@ Point operator+(const Point& left, const Point& right)
 	res.set_y(left.get_y() + right.get_y());
 	return res;
 }
+
+bool operator==(const Point& left, const Point& right)
+{
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+		return true;
+	else
+		return false;*/ //это просто
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+}
+
+bool operator!=(const Point left, const Point right)
+{
+	return !(left == right);
+}
+bool operator<(const Point& left, const Point& right)
+{
+	return left.get_x() < right.get_x() && left.get_y() < right.get_y();
+}
+bool operator<=(const Point& left, const Point& right)
+{
+	return left.get_x() <= right.get_x() && left.get_y() <= right.get_y();
+}
+ostream& operator<<(ostream& os, const Point& obj)
+{
+	os << "X = " << obj.get_x();
+	os << "\tY = " << obj.get_y();
+	return os; //измененный поток cout
+}
 //#define STRUCT_POINT
 //#define GET_SET_CHECK
 //#define DISTANCE_CHECK //Analysis Homework 2
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_OPERATOR_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
+//#define COMPARISON_OPERATORS
 
 void main()
 {
@@ -193,10 +229,10 @@ void main()
 	cout << delimiter << endl;
 #endif
 #ifdef ARITHMETICAL_OPERATORS_CHECK
-/*  //для прмера
-	int a = 2;
-	int b = 3;
-	int c = a + b;*/
+	/*  //для прмера
+		int a = 2;
+		int b = 3;
+		int c = a + b;*/
 
 	Point A(2, 3);
 	Point B(7, 8);
@@ -216,7 +252,19 @@ void main()
 		i.print();
 	}
 #endif
+#ifdef COMPARISON_OPERATORS
+	cout << (Point(2, 3) != Point(7, 8)) << endl;
+	for (Point i = 0; i <= Point(10, 10); ++i)
+	{
+		i.print();
+	}
+#endif
 
-
-
+	Point A;
+	//A.print();
+	/*A.set_x(2);
+	A.set_y(3);*/
+	A(2, 3);
+	//A.print();
+	cout << A << endl;
 }
