@@ -70,7 +70,19 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-
+	Point& operator++() //Prefix increment
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int/*здесь возможен только int*/) //Postfix increment
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
 	//      METHODS:
 	double distance(const Point& other)const //const - гарантия безопасности
 	{
@@ -97,10 +109,19 @@ double distance(const Point& A, const Point& B)
 	return sqrt(pow(A.get_x() - B.get_x(), 2) + pow(A.get_y() - B.get_y(), 2));
 }
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point res;
+	res.set_x(left.get_x() + right.get_x());
+	res.set_y(left.get_y() + right.get_y());
+	return res;
+}
 //#define STRUCT_POINT
 //#define GET_SET_CHECK
 //#define DISTANCE_CHECK //Analysis Homework 2
 //#define CONSTRUCTORS_CHECK
+//#define ASSIGNMENT_OPERATOR_CHECK
+//#define ARITHMETICAL_OPERATORS_CHECK
 
 void main()
 {
@@ -119,7 +140,6 @@ void main()
 	Point* pA = &A; //сохраняем адрес в указатель
 	cout << pA->x << tab << pA->y << endl; //обращение по адресу - стрелка  
 #endif // STRUCT_POINT
-
 #ifdef GET_SET_CHECK
 	Point A; //объект А состоит из составных частей x и y
 	A.set_x(2);
@@ -133,7 +153,6 @@ void main()
 	//cout << B.get_x() << tab << B.get_y() << endl;
 	B.print();
 #endif
-
 #ifdef DISTANCE_CHECK
 	Point A(2, 3);
 	Point B(5, 7);
@@ -149,7 +168,6 @@ void main()
 	cout << "Расстояние от точки B до точки A: " << distance(B, A) << endl;
 	cout << delimiter << endl;
 #endif
-
 #ifdef CONSTRUCTORS_CHECK
 	Point A; //Default constructor
 	A.print();
@@ -166,11 +184,39 @@ void main()
 	E = D;
 	E.print();
 #endif
-
+#ifdef ASSIGNMENT_OPERATOR_CHECK
 	int  a, b, c;
 	a = b = c = 0;
 	Point A, B, C;
 	cout << delimiter << endl;
 	A = B = C = Point(2, 3);
 	cout << delimiter << endl;
+#endif
+#ifdef ARITHMETICAL_OPERATORS_CHECK
+/*  //для прмера
+	int a = 2;
+	int b = 3;
+	int c = a + b;*/
+
+	Point A(2, 3);
+	Point B(7, 8);
+	Point C = A + B;
+
+	A.print();
+	B.print();
+	C.print();
+	++C;
+	C.print();
+	Point D = C++;
+	C.print();
+	D.print();
+
+	for (Point i; i.get_x() < 10; ++i)
+	{
+		i.print();
+	}
+#endif
+
+
+
 }
