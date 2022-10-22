@@ -14,6 +14,7 @@ class Point
 {
 	double x;
 	double y;
+
 public:
 	double get_x()const
 	{
@@ -33,24 +34,24 @@ public:
 	}
 
 	//      CONSTRUCTORS:
-	/*Point() //default
+	/*Point()                         //инструктор по умолчанию
 	{
 		x = y = double();   //double()-значение по умолчанию для типа double
 		cout << "Constructor:\t" << this << endl;
 	}*/
-	/*Point(double x)
+	/*Point(double x)                 //инструктор с одним параметрам
 	{
 		this->x = x;
 		this->y = 0;
 		cout << "1ArgConstructor:" << this << endl;
 	}*/
-	Point(double x = 0, double y = 0) //универсальный конструктор
+	Point(double x = 0, double y = 0)     //универсальный конструктор (и-р по умолчанию+и-р с одним параметрам)
 	{
 		this->x = x;
 		this->y = y;
 		cout << "Constructor:\t" << this << endl;
 	}
-	Point(const Point& other)  //Copy Connstructor
+	Point(const Point& other)             //Copy Connstructor
 	{
 		this->x = other.x;
 		this->y = other.y;
@@ -62,7 +63,7 @@ public:
 		cout << "Destructor:\t" << this << endl;
 	}
 
-	//            OPERATORS    //Оператор присваивания
+	//            OPERATORS              //Оператор присваивания
 	Point& operator=(const Point& other)
 	{
 		this->x = other.x;
@@ -70,13 +71,13 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-	Point& operator++() //Prefix increment
+	Point& operator++()    //Prefix increment
 	{
 		x++;
 		y++;
 		return *this;
 	}
-	Point operator++(int/*здесь возможен только int*/) //Postfix increment
+	Point operator++(int/*здесь возможен только int!*/) //Postfix increment
 	{
 		Point old = *this;
 		x++;
