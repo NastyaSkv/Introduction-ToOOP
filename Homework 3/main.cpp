@@ -1,6 +1,6 @@
-//Реализовать класс Fraction, описывающий простую дробь.
-//В классе должны быть все необходимые методы, так же нужно обеспечить
-//выполнение арифметических и других важных операций над дробями;
+п»ї//Р РµР°Р»РёР·РѕРІР°С‚СЊ РєР»Р°СЃСЃ Fraction, РѕРїРёСЃС‹РІР°СЋС‰РёР№ РїСЂРѕСЃС‚СѓСЋ РґСЂРѕР±СЊ.
+//Р’ РєР»Р°СЃСЃРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РјРµС‚РѕРґС‹, С‚Р°Рє Р¶Рµ РЅСѓР¶РЅРѕ РѕР±РµСЃРїРµС‡РёС‚СЊ
+//РІС‹РїРѕР»РЅРµРЅРёРµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… Рё РґСЂСѓРіРёС… РІР°Р¶РЅС‹С… РѕРїРµСЂР°С†РёР№ РЅР°Рґ РґСЂРѕР±СЏРјРё;
 #include<iostream>
 using namespace std;
 
@@ -56,7 +56,7 @@ public:
 	}
 
 	//METHODS
-	Fraction Unified(const Fraction& other)const  //приведение к общему знаменателю
+	Fraction Unified(const Fraction& other)const  //РїСЂРёРІРµРґРµРЅРёРµ Рє РѕР±С‰РµРјСѓ Р·РЅР°РјРµРЅР°С‚РµР»СЋ
 	{
 		Fraction C, D, rezz;
 		C.y = this->y * other.y;           // C = A
@@ -68,7 +68,7 @@ public:
 		return rezz;
 	}
 
-	Fraction Reduction() //сокращение дробей
+	Fraction Reduction() //СЃРѕРєСЂР°С‰РµРЅРёРµ РґСЂРѕР±РµР№
 	{
 		Fraction r;
 		for (int i = 10; i > 1; i--)
@@ -82,7 +82,7 @@ public:
 		} return r;
 	}
 
-	Fraction Integer()  //выделение общей части
+	Fraction Integer()  //РІС‹РґРµР»РµРЅРёРµ РѕР±С‰РµР№ С‡Р°СЃС‚Рё
 	{
 		Fraction res;
 		if (this->x > this->y)
@@ -93,7 +93,7 @@ public:
 		return res;
 	}
 
-	Fraction Sum(const Fraction& other)const   //Сумма
+	Fraction Sum(const Fraction& other)const   //РЎСѓРјРјР°
 	{
 		Fraction res;
 		if (this->y != other.y)return Unified(other);
@@ -105,7 +105,7 @@ public:
 		}
 	}
 
-	Fraction Difference(const Fraction& other)const   //Разность
+	Fraction Difference(const Fraction& other)const   //Р Р°Р·РЅРѕСЃС‚СЊ
 	{
 		Fraction res;
 		res.x = -other.x;
@@ -119,7 +119,7 @@ public:
 		}
 	}
 
-	Fraction Multiplication(const Fraction& other)const //умножение
+	Fraction Multiplication(const Fraction& other)const //СѓРјРЅРѕР¶РµРЅРёРµ
 	{
 		Fraction res;
 		res.x = this->x * other.x;
@@ -127,7 +127,7 @@ public:
 		return res;
 	}
 	
-	Fraction Division(const Fraction& other)const //деление
+	Fraction Division(const Fraction& other)const //РґРµР»РµРЅРёРµ
 	{
 		Fraction res;
 		res.x = this->x * other.y;
@@ -163,35 +163,35 @@ void main()
 	setlocale(LC_ALL, "");
 	int r, t;
 
-	cout << "Введите числитель и знаменатель дроби А: " << endl; cin >> r >> t;
+	cout << "Р’РІРµРґРёС‚Рµ С‡РёСЃР»РёС‚РµР»СЊ Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ РґСЂРѕР±Рё Рђ: " << endl; cin >> r >> t;
 	Fraction A(r, t);
-	cout << "Дробь А: " << A << endl << endl;
+	cout << "Р”СЂРѕР±СЊ Рђ: " << A << endl << endl;
 
-	cout << "Введите числитель и знаменатель дроби В: " << endl; cin >> r >> t;
+	cout << "Р’РІРµРґРёС‚Рµ С‡РёСЃР»РёС‚РµР»СЊ Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ РґСЂРѕР±Рё Р’: " << endl; cin >> r >> t;
 	Fraction B(r, t);
-	cout << "Дробь В: " << B << endl << endl;
+	cout << "Р”СЂРѕР±СЊ Р’: " << B << endl << endl;
 
 	Fraction C;
-	C = A.Sum(B);  //считаем сумму
-	C.Reduction(); //сокращаем
-	C.Integer();   //выделяем целую часть
-	cout << "Сумма дробей: A + B = " << C << endl;
+	C = A.Sum(B);  //СЃС‡РёС‚Р°РµРј СЃСѓРјРјСѓ
+	C.Reduction(); //СЃРѕРєСЂР°С‰Р°РµРј
+	C.Integer();   //РІС‹РґРµР»СЏРµРј С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
+	cout << "РЎСѓРјРјР° РґСЂРѕР±РµР№: A + B = " << C << endl;
 
 	Fraction P;
-	P = A.Difference(B);  //считаем разность
-	P.Reduction(); //сокращаем
-	P.Integer();   //выделяем целую часть
-	cout << "Разность дробей: A - B = " << P << endl;
+	P = A.Difference(B);  //СЃС‡РёС‚Р°РµРј СЂР°Р·РЅРѕСЃС‚СЊ
+	P.Reduction(); //СЃРѕРєСЂР°С‰Р°РµРј
+	P.Integer();   //РІС‹РґРµР»СЏРµРј С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
+	cout << "Р Р°Р·РЅРѕСЃС‚СЊ РґСЂРѕР±РµР№: A - B = " << P << endl;
 
 	Fraction E;
-	E = A.Multiplication(B); //умножаем
-	E.Reduction(); //сокращаем
-	E.Integer();   //выделяем целую часть
-	cout << "Умножение дробей: A * B = " << E << endl;
+	E = A.Multiplication(B); //СѓРјРЅРѕР¶Р°РµРј
+	E.Reduction(); //СЃРѕРєСЂР°С‰Р°РµРј
+	E.Integer();   //РІС‹РґРµР»СЏРµРј С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
+	cout << "РЈРјРЅРѕР¶РµРЅРёРµ РґСЂРѕР±РµР№: A * B = " << E << endl;
 
 	Fraction W;
-	W = A.Division(B); //делим
-	W.Reduction(); //сокращаем
-	W.Integer();   //выделяем целую часть
-	cout << "Деление дробей: A : B = " << W << endl;
+	W = A.Division(B); //РґРµР»РёРј
+	W.Reduction(); //СЃРѕРєСЂР°С‰Р°РµРј
+	W.Integer();   //РІС‹РґРµР»СЏРµРј С†РµР»СѓСЋ С‡Р°СЃС‚СЊ
+	cout << "Р”РµР»РµРЅРёРµ РґСЂРѕР±РµР№: A : B = " << W << endl;
 }
