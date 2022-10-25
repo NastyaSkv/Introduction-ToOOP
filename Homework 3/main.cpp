@@ -52,6 +52,7 @@ public:
 	{
 		this->x = other.x;
 		this->y = other.y;
+		this->o = other.o;
 		return *this;
 	}
 
@@ -70,7 +71,6 @@ public:
 
 	Fraction Reduction() //сокращение дробей
 	{
-		Fraction r;
 		for (int i = 10; i > 1; i--)
 		{
 			if (this->x % i == 0 && this->y % i == 0)
@@ -79,18 +79,17 @@ public:
 				this->y = this->y / i;
 				i++;
 			}
-		} return r;
+		} return *this;
 	}
 
 	Fraction Integer()  //выделение общей части
 	{
-		Fraction res;
 		if (this->x > this->y)
 		{
 			this->o = this->x / this->y;
 			this->x = this->x - this->o * this->y;
 		}
-		return res;
+		return *this;
 	}
 
 	Fraction Sum(const Fraction& other)const   //Сумма
