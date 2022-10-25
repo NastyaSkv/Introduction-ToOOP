@@ -172,26 +172,26 @@ void main()
 	cout << "Дробь В: " << B << endl << endl;
 
 	Fraction C;
-	C = A.Sum(B);  //считаем сумму
-	C.Reduction(); //сокращаем
-	C.Integer();   //выделяем целую часть
+	C = A.Sum(B);                         //считаем сумму
+	C.Reduction();                        //сокращаем
+	C.Integer();                          //выделяем целую часть
 	cout << "Сумма дробей: A + B = " << C << endl;
 
 	Fraction P;
-	P = A.Difference(B);  //считаем разность
-	P.Reduction(); //сокращаем
-	P.Integer();   //выделяем целую часть
+	P = A.Difference(B);                  //считаем разность
+	P.Reduction();                        //сокращаем
+	P.Integer();                          //выделяем целую часть
 	cout << "Разность дробей: A - B = " << P << endl;
 
 	Fraction E;
-	E = A.Multiplication(B); //умножаем
-	E.Reduction(); //сокращаем
-	E.Integer();   //выделяем целую часть
+	E = A.Multiplication(B);              //умножаем
+	E.Reduction();                        //сокращаем
+	E.Integer();                          //выделяем целую часть
 	cout << "Умножение дробей: A * B = " << E << endl;
 
 	Fraction W;
-	W = A.Division(B); //делим
-	W.Reduction(); //сокращаем
-	W.Integer();   //выделяем целую часть
+	W = A.Division(B);                    //делим
+	W.Reduction();                        //сокращаем
+	W.Integer();                          //выделяем целую часть
 	cout << "Деление дробей: A : B = " << W << endl;
 }
