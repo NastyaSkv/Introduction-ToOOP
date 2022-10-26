@@ -247,30 +247,35 @@ void main()
 
 	cout << delimiter << endl;
 	cout << "A = " << C << "\t\t" << "B = " << D << endl << endl;
-	Fraction redB = D;
-	redB.Reduction();
+	Fraction redB = D;    //скопировали
+	redB.Reduction();     //сократили
+	redB.Integer();       //выделили общую часть
 
 	Fraction sum = C;       //СУММА
 	sum += D;
 	cout << "A += B  |->  " << "A = " << sum << "\t";
-	sum.Reduction();
+	sum.Reduction(); 
+	sum.Integer();
 	cout << "   |->  " << "A = " << sum << "\t" << "B = " << redB << endl;
 	
 	Fraction dif = C;      //РАЗНОСТЬ
 	dif -= D;
 	cout << "A -= B  |->  " << "A = " << dif << "\t";
 	dif.Reduction();
+	dif.Integer();
 	cout << "   |->  " << "A = " << dif << "\t" << "B = " << redB << endl;
 	
 	Fraction mult = C;     //УМНОЖЕНИЕ
 	mult *= D;
 	cout << "A *= B  |->  " << "A = " << mult << "\t";
 	mult.Reduction();
+	mult.Integer();
 	cout << "   |->  " << "A = " << mult << "\t" << "B = " << redB << endl;
 	
 	Fraction div = C;      //ДЕЛЕНИЕ
 	div /= D;
 	cout << "A /= B  |->  " << "A = " << div << "\t";
 	div.Reduction();
+	div.Integer();
 	cout << "   |->  " << "A = " << div << "\t" << "B = " << redB << endl;
 }
