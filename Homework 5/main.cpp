@@ -82,9 +82,12 @@ public:
 	Fraction(double other)
 	{
 		this->integer = (int)other;
-		double i = other - this->integer;
-		for (this->denominator = 1; i - (int)i != 0; i *= 10, this->denominator *= 10)this->numerator = i;
+		this->numerator = (other - this->integer)*100;
+		this->denominator = 100;
 		cout << "CopyConstructor:\t" << this << endl;
+		/*double i = other - this->integer;
+	for (this->denominator = 1; i - (int)i != 0; i *= 10, this->denominator *= 10);
+	this->numerator = i;*/
 	}
 	~Fraction()
 	{
@@ -341,14 +344,14 @@ void main()
 	cout << B << endl;
 #endif
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
-	Fraction A(0, 3, 2);
+	Fraction A(2, 3, 4);
 	int a = A;
 	cout << a << endl;
 
 	double b = A;
 	cout << b << endl;
 
-	Fraction B = 2.05;
+	Fraction B = 2.75;
 	B.Reduct();
 	cout << B << endl;
 	
