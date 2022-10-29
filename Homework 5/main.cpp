@@ -1,7 +1,6 @@
 ﻿//Проверочный код в секции CONVERSION_FROM_CLASS_TO_OTHER_TYPES должен заработать.
 //(код-копия с рабочего classFaction)
 #include<iostream>
-#include <typeinfo>
 using namespace std;
 using std::cin;
 using std::cout;
