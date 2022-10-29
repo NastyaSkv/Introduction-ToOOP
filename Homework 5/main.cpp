@@ -1,4 +1,6 @@
-﻿#include<iostream>
+﻿//Проверочный код в секции CONVERSION_FROM_CLASS_TO_OTHER_TYPES должен заработать.
+//(код-копия с рабочего classFaction)
+#include<iostream>
 #include <typeinfo>
 using namespace std;
 using std::cin;
@@ -77,6 +79,15 @@ public:
 		this->denominator = other.denominator;
 		cout << "CopyConstructor:" << this << endl;
 	}
+	Fraction(double other)
+	{
+		this->integer = (int)other;
+		double i = other - this->integer;
+		for (this->denominator = 1; i - (int)i != 0; i *= 10, this->denominator *= 10);
+		this->numerator = i;
+
+		cout << "CopyConstructor:\t" << this << endl;
+	}
 	~Fraction()
 	{
 		cout << "Destructor:\t" << this << endl;
@@ -105,6 +116,15 @@ public:
 		Fraction old = *this;
 		integer++;
 		return old;
+	}
+
+	operator int()const
+	{
+		return this->integer + this->numerator / this->denominator;
+	}
+	operator double()const
+	{
+		return this->integer + double(this->numerator) / this->denominator;
 	}
 
 	//				METHODS		 
@@ -311,14 +331,15 @@ void main()
 	cout << B << endl;
 #endif
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
-	//Fraction A(0, 3, 2);
-	//int a = A;
-	//	cout << a << endl;
+	Fraction A(0, 3, 2);
+	int a = A;
+		cout << a << endl;
 
-	//double b = A;
-	//	cout << b << endl;
+	double b = A;
+		cout << b << endl;
 
-	//	Fraction B = 2.75;
-	//	cout << B << endl;
+	Fraction B = 2.75;
+	cout << B << endl;
+	//
 #endif
 }
