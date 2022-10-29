@@ -85,7 +85,7 @@ public:
 		double i = other - this->integer;
 		for (this->denominator = 1; i - (int)i != 0; i *= 10, this->denominator *= 10);
 		this->numerator = i;
-
+		Reduct();
 		cout << "CopyConstructor:\t" << this << endl;
 	}
 	~Fraction()
@@ -150,6 +150,18 @@ public:
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
 	}
+	Fraction Reduct() //сокращение дробей
+	{
+		for (int i = 10; i > 1; i--)
+		{
+			if (this->numerator % i == 0 && this->denominator % i == 0)
+			{
+				this->numerator = this->numerator / i;
+				this->denominator = this->denominator / i;
+				i++;
+			}
+		} return *this;
+	}
 };
 
 ostream& operator<<(ostream& os, const Fraction& obj)
@@ -205,7 +217,7 @@ Fraction operator+(Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper();
 }
-//  COMPARISON OPERATORS
+//				  COMPARISON OPERATORS
 bool operator==(Fraction left, Fraction right)
 {
 	left.to_improper();
@@ -333,12 +345,12 @@ void main()
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 	Fraction A(0, 3, 2);
 	int a = A;
-		cout << a << endl;
+	//cout << a << endl;
 
 	double b = A;
-		cout << b << endl;
+	//cout << b << endl;
 
-	Fraction B = 2.75;
+	Fraction B = 5.15;
 	cout << B << endl;
 	//
 #endif
