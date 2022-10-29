@@ -56,6 +56,16 @@ public:
 		this->denominator = 1;
 		cout << "1ArgConstructor:" << this << endl;
 	}
+	Fraction(double decimal)
+	{
+		integer = decimal;
+		decimal += 1e-9;
+		denominator = 1e+9; //1000000000;
+		numerator = (decimal - integer) * denominator;
+		reduce();
+		cout << "DoubleConstructor:" << endl;
+	}
+
 	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -106,6 +116,15 @@ public:
 		integer++;
 		return old;
 	}
+	//				Type-cast operators
+	explicit operator int()const
+	{
+		return integer + numerator / denominator;
+	}
+	explicit operator double()const
+	{
+		return integer + numerator / denominator;
+	}
 
 	//				METHODS		 
 	Fraction& to_improper()
@@ -130,6 +149,23 @@ public:
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
 	}
+	Fraction& reduce()   //сокращение сделаем методом Евклида
+	{
+		int more, less, rest; //reat - остаток
+		if (numerator > denominator)more = numerator, less = denominator;
+		else less = numerator, more = denominator;
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more; //GCD - Greatest Common Dividor (наибольший общий делитель)
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
+	}
+
 };
 
 ostream& operator<<(ostream& os, const Fraction& obj)
@@ -311,14 +347,14 @@ void main()
 	cout << B << endl;
 #endif
 #ifdef CONVERSION_FROM_CLASS_TO_OTHER_TYPES
-	//Fraction A(0, 3, 2);
-	//int a = A;
-	//	cout << a << endl;
+	Fraction A(2, 8, 3);
+	int a = (int)A;
+	cout << a << endl;
 
-	//double b = A;
-	//	cout << b << endl;
+	double b = (double)A;
+	cout << b << endl;
 
-	//	Fraction B = 2.75;
-	//	cout << B << endl;
+	Fraction B = 2.75;
+	cout << B << endl;
 #endif
 }
