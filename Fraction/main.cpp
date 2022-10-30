@@ -151,6 +151,7 @@ public:
 	}
 	Fraction& reduce()   //сокращение сделаем методом Евклида
 	{
+		
 		int more, less, rest; //reat - остаток
 		if (numerator > denominator)more = numerator, less = denominator;
 		else less = numerator, more = denominator;
