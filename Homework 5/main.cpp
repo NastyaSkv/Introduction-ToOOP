@@ -1,6 +1,7 @@
 ﻿//Проверочный код в секции CONVERSION_FROM_CLASS_TO_OTHER_TYPES должен заработать.
 //(код-копия с рабочего classFaction)
 #include<iostream>
+
 using namespace std;
 using std::cin;
 using std::cout;
@@ -84,10 +85,8 @@ public:
 		this->numerator = (other - this->integer)*100;
 		this->denominator = 100;
 		cout << "CopyConstructor:\t" << this << endl;
-		/*double i = other - this->integer;
-	for (this->denominator = 1; i - (int)i != 0; i *= 10, this->denominator *= 10);
-	this->numerator = i;*/
 	}
+	
 	~Fraction()
 	{
 		cout << "Destructor:\t" << this << endl;
@@ -217,6 +216,14 @@ Fraction operator+(Fraction left, Fraction right)
 		left.get_denominator() * right.get_denominator()
 	).to_proper();
 }
+istream& operator>>(istream& is, Fraction& obj)
+{
+	int one, two, three;
+	is >> one>>two>>three;
+	obj = Fraction(one, two, three);
+	obj.Reduct();	
+	return is;
+}
 //				  COMPARISON OPERATORS
 bool operator==(Fraction left, Fraction right)
 {
@@ -261,7 +268,7 @@ bool  operator<=(const Fraction& left, const Fraction& right)
 //#define COMPARISON_OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 
 void main()
 {
@@ -355,4 +362,8 @@ void main()
 	cout << B << endl;
 	
 #endif
+	Fraction A;
+    cout << "Введите дробь вида X(y/z): " <<endl;
+	cin >> A;
+	cout << A << endl;
 }
