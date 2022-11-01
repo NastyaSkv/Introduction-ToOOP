@@ -1,12 +1,16 @@
-//(код-копия с рабочего String)
-//
+п»ї//(РєРѕРґ-РєРѕРїРёСЏ СЃ СЂР°Р±РѕС‡РµРіРѕ String)
+//РџСЂРѕРІРµСЂРѕС‡РЅС‹Р№ РєРѕРґ РґРѕР»Р¶РµРЅ Р·Р°СЂР°Р±РѕС‚Р°С‚СЊ
+
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 class String
 {
-	size_t size;   //размер строки
-	char* str;     //указатель на строку в динамической памяти
+	size_t size;   //СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё
+	char* str;     //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂРѕРєСѓ РІ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё
 public:
 	const char* get_str() const
 	{
@@ -14,7 +18,6 @@ public:
 	}
 
 	//     CONSTRUCTORS:
-
 	explicit String(size_t size = 80)
 	{
 		this->size = size;
@@ -23,9 +26,9 @@ public:
 	}
 	String(const char str[])
 	{
-		this->size = strlen(str) + 1; //посчитали размер
+		this->size = strlen(str) + 1; //РїРѕСЃС‡РёС‚Р°Р»Рё СЂР°Р·РјРµСЂ
 		this->str = new char[size] {};
-		//копируем полученную строку в выделенную:
+		//РєРѕРїРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅСѓСЋ СЃС‚СЂРѕРєСѓ РІ РІС‹РґРµР»РµРЅРЅСѓСЋ:
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "Constructor:\t" << endl;
 	}
@@ -52,11 +55,28 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
+	String& operator+(String& other)
+	{
+		this->size += other.size;
+		for (int i = 0; i < this->size - 2;)
+		{
+			for (int z = 0; z < this->size - other.size - 1; z++, i++)
+			{
+				this->str[i] = this->str[z];
+			}
+			for (int j = 0; j < other.size - 1; j++, i++)
+			{
+				this->str[i] = other.str[j];
+			}
+		}
+		return *this;
+	}
+
 	//      METHODS
 	void print()const
 	{
-		cout << "size:\t" << size << endl;  //строка
-		cout << "str:\t" << str << endl;    //размер строки
+		cout << "size:\t" << size << endl;  //СЃС‚СЂРѕРєР°
+		cout << "str:\t" << str << endl;    //СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё
 	}
 };
 
@@ -66,22 +86,22 @@ ostream& operator<<(ostream& os, const String& obj)
 }
 
 //#define CONSTRUCTORS_CHECK
-//#define OPERATOR_PLUS_CHECK
+#define OPERATOR_PLUS_CHECK
 
 void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef CONSTRUCTORS_CHECK
 
-	String str1;   //пустая строка размером 80 байт
+	String str1;   //РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР° СЂР°Р·РјРµСЂРѕРј 80 Р±Р°Р№С‚
 
-	str1.print();  //выведем строку
+	str1.print();  //РІС‹РІРµРґРµРј СЃС‚СЂРѕРєСѓ
 	cout << str1 << endl;
 
 	String str2(22);
 	str2.print();
 
-	String str3 = "Hello"; //здесь Hello - строковая константа
+	String str3 = "Hello"; //Р·РґРµСЃСЊ Hello - СЃС‚СЂРѕРєРѕРІР°СЏ РєРѕРЅСЃС‚Р°РЅС‚Р°
 	str3.print();
 
 	String str4 = str3;     //Copy Constructor
@@ -93,9 +113,11 @@ void main()
 #endif // CONSTRUCTORS_CHECK
 
 #ifdef OPERATOR_PLUS_CHECK
+
 	String str1 = "Hello";
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
+
 #endif // OPERATOR_PLUS_CHECK
 }
