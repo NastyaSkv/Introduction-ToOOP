@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 #include <typeinfo>
 using namespace std;
 using std::cin;
@@ -151,7 +152,7 @@ public:
 	}
 	Fraction& reduce()   //сокращение сделаем методом Евклида
 	{
-		
+
 		int more, less, rest; //reat - остаток
 		if (numerator > denominator)more = numerator, less = denominator;
 		else less = numerator, more = denominator;
@@ -180,6 +181,29 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 	}
 	else if (obj.get_integer() == 0) os << 0;
 	return os;
+}
+istream& operator>>(istream& is, Fraction& obj)
+{
+	/*int integer, numerator, denominator;
+		is >> integer >> numerator >> denominator;
+	obj = Fraction(integer, numerator, denominator);
+	return is;*/
+	const int SIZE = 256;
+	char buffer[SIZE]{};
+	//is >> buffer;
+	is.getline(buffer, SIZE);
+	char delimiters[] = "()/ ";
+	int number[3] = {}; //здесь будут хранитьс числа извлеченные из строки
+	
+	int n = 0; //будет считать введенные цифры и сохр кол-во введенных чисел
+	for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+	{
+		number[n++] = atoi(pch);
+			//atoi(char* str); //ASCII string to integer
+	}
+	for (int i = 0; i < n; i++)cout << number[i] << "\t";
+	cout << endl;
+	return is;
 }
 Fraction operator*(Fraction left, Fraction right)
 {
@@ -266,7 +290,7 @@ bool  operator<=(const Fraction& left, const Fraction& right)
 //#define COMPARISON_OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
+//#define CONVERSION_FROM_CLASS_TO_OTHER_TYPES
 
 void main()
 {
@@ -358,4 +382,8 @@ void main()
 	Fraction B = 2.75;
 	cout << B << endl;
 #endif
+
+	Fraction A;
+	cout << "Введите простую дробь: " << endl; cin >> A;
+	cout << A << endl;
 }
