@@ -10,6 +10,14 @@ public:
 	{
 		return str;
 	}
+	 char* get_str() 
+	{
+		return str;
+	}
+	size_t get_size()const
+	{
+		return size;
+	}
 
 	//     CONSTRUCTORS:
 	/*String()     //дефолтный конструктор
@@ -43,7 +51,15 @@ public:
 		this->size = other.size;
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyConstructor:" <<this<< endl;
+		cout << "CopyConstructor:" << this << endl;
+	}
+	String(String&& other)
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor: " << this << endl;
 	}
 	~String()
 	{
@@ -61,6 +77,11 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
+	char& operator[](int i)const  //i - index
+	{
+		return str[i];
+	}
+
 	//      METHODS
 	void print()const
 	{
@@ -69,13 +90,30 @@ public:
 	}
 };
 
+String operator+(const String& left, const String& right)
+{
+	/*String cat(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++)
+		cat.get_str()[i] = left.get_str()[i];
+	for (int i = 0; i < right.get_size(); i++)
+		cat.get_str()[i + left.get_size() - 1] = right.get_str()[1];*/
+	//усложним
+	String cat(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++)
+		cat[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++)
+		cat[i + left.get_size() - 1] = right[i];
+
+	return cat;
+}
+
 ostream& operator<<(ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 }
 
 //#define CONSTRUCTORS_CHECK
-//#define OPERATOR_PLUS__CHECK
+#define OPERATOR_PLUS_CHECK
 
 void main()
 {
@@ -90,7 +128,7 @@ void main()
 	//если мы хотим создавать строки нужного размера
 	//String str2 = 22; //из-за explicit мы не можем так сделать
 	String str2(22);
-	str2.print(); 
+	str2.print();
 
 	String str3 = "Hello"; //здесь Hello - строковая константа
 	str3.print();
