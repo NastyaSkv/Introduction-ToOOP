@@ -16,6 +16,14 @@ public:
 	{
 		return str;
 	}
+	char* get_str() 
+	{
+		return str;
+	}
+	const size_t get_size() const
+	{
+		return size;
+	}
 
 	//     CONSTRUCTORS:
 	explicit String(size_t size = 80)
@@ -39,13 +47,22 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
+	
+	String(String&& other)  //MoveConstructor
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor:\t" << this << endl;
+	}
 	~String()
 	{
 		delete[] this->str;
 		cout << "Destructor:\t" << endl;
 	}
 	//      OPERATORS
-	String& operator=(const String& other)
+	/*String& operator=(const String& other)
 	{
 		if (this == &other)return *this;
 		delete[] this->str;
@@ -54,8 +71,21 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
+	}*/
+	String& operator=(String&& other)  //MoveAssignment
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+		this->str = other.str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		other.str = nullptr;
+		other.size = 0;
+		cout << "MoveAssignment:\t" << this << endl;
+		return *this;
 	}
-	String& operator+(String& other)
+	/*String& operator+(String& other)
 	{
 		this->size += other.size;
 		for (int i = 0; i < this->size - 2;)
@@ -70,8 +100,11 @@ public:
 			}
 		}
 		return *this;
+	}*/
+	char& operator[](int i)const
+	{
+		return str[i];
 	}
-
 	//      METHODS
 	void print()const
 	{
@@ -80,6 +113,16 @@ public:
 	}
 };
 
+String operator+(const String& left, const String& right)
+{
+	String summa(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++)
+		summa[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++)
+		summa[i + left.get_size() - 1] = right[i];
+	cout << "Operator+" << endl;
+	return summa;
+}
 ostream& operator<<(ostream& os, const String& obj)
 {
 	return os << obj.get_str();
@@ -118,6 +161,7 @@ void main()
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
-
+	//str1 = str2;
+	//cout << str1 << endl;
 #endif // OPERATOR_PLUS_CHECK
 }
