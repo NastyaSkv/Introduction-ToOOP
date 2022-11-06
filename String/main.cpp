@@ -1,6 +1,9 @@
 ﻿#include<iostream>
 using namespace std;
 
+class String;
+String operator+(const String& left, const String& right);
+
 class String
 {
 	size_t size;   //размер строки
@@ -77,6 +80,21 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
+	String& operator=(String&& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t" << this << endl;
+		return *this;
+	}
+	String& operator+=(const String& other)
+	{
+		return *this = *this + other;
+	}
 	char& operator[](int i)const  //i - index
 	{
 		return str[i];
@@ -144,7 +162,10 @@ void main()
 #ifdef OPERATOR_PLUS_CHECK
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + str2;
-	cout << str3 << endl;
+	/*String str3;
+	str3= str1 + str2;
+	cout << str3 << endl;*/
+	str1 += str2;
+	cout << str1 << endl;
 #endif // OPERATOR_PLUS_CHECK
 }

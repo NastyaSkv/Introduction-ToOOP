@@ -16,11 +16,11 @@ public:
 	{
 		return str;
 	}
-	char* get_str() 
+	char* get_str()
 	{
 		return str;
 	}
-	const size_t get_size() const
+	size_t get_size() const
 	{
 		return size;
 	}
@@ -30,7 +30,7 @@ public:
 	{
 		this->size = size;
 		this->str = new char[size] {};
-		cout << "DefConstructor:\t" << endl;
+		cout << "DefConstructor:\t" <<this<< endl;
 	}
 	String(const char str[])
 	{
@@ -47,7 +47,7 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
-	
+
 	String(String&& other)  //MoveConstructor
 	{
 		this->size = other.size;
@@ -59,49 +59,37 @@ public:
 	~String()
 	{
 		delete[] this->str;
-		cout << "Destructor:\t" << endl;
+		cout << "Destructor:\t" << this << endl;
 	}
 	//      OPERATORS
-	/*String& operator=(const String& other)
+	String& operator=(const String& other)
 	{
 		if (this == &other)return *this;
 		delete[] this->str;
 		this->size = other.size;
+		//Deep copy:
 		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		for (int i = 0; i < size; i++)
+			this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
-	}*/
-	String& operator=(String&& other)  //MoveAssignment
+	}
+	String& operator=(String&& other)
 	{
 		if (this == &other)return *this;
 		delete[] this->str;
-		this->str = other.str;
 		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		other.str = nullptr;
+		this->str = other.str;
 		other.size = 0;
+		other.str = nullptr;
 		cout << "MoveAssignment:\t" << this << endl;
 		return *this;
 	}
-	/*String& operator+(String& other)
+	char operator[](int i)const		//i - index
 	{
-		this->size += other.size;
-		for (int i = 0; i < this->size - 2;)
-		{
-			for (int z = 0; z < this->size - other.size - 1; z++, i++)
-			{
-				this->str[i] = this->str[z];
-			}
-			for (int j = 0; j < other.size - 1; j++, i++)
-			{
-				this->str[i] = other.str[j];
-			}
-		}
-		return *this;
-	}*/
-	char& operator[](int i)const
+		return str[i];
+	}
+	char& operator[](int i)
 	{
 		return str[i];
 	}
@@ -159,7 +147,8 @@ void main()
 
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + str2;
+	String str3;           //здесь мы присвоили объект по умолчанию
+	str3 = str1 + str2;    //присваиваем значение move assignment
 	cout << str3 << endl;
 	//str1 = str2;
 	//cout << str1 << endl;
