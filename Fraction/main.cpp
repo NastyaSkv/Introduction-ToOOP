@@ -193,7 +193,7 @@ istream& operator>>(istream& is, Fraction& obj)
 	//is >> buffer;
 	is.getline(buffer, SIZE);
 	char delimiters[] = "()/ ";
-	int number[3] = {}; //здесь будут хранитьс числа извлеченные из строки
+	int number[3] = {}; //здесь будут храниться числа извлеченные из строки
 	
 	int n = 0; //будет считать введенные цифры и сохр кол-во введенных чисел
 	for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
