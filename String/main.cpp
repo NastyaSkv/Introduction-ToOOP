@@ -1,6 +1,10 @@
-﻿//ConstructorsDelegationInString
+﻿//StringSeparation
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::size_t;
 
 class String;
 String operator+(const String& left, const String& right);  
@@ -10,18 +14,9 @@ class String
 	size_t size;   //размер строки
 	char* str;     //указатель на строку в динамической памяти
 public:
-	const char* get_str() const
-	{
-		return str;
-	}
-	 char* get_str() 
-	{
-		return str;
-	}
-	size_t get_size()const
-	{
-		return size;
-	}
+	const char* get_str() const;
+	char* get_str();
+	size_t get_size()const;
 
 	//     CONSTRUCTORS:
 	/*String()     //дефолтный конструктор
@@ -36,78 +31,112 @@ public:
 		this->str = new char[size] {};
 		cout << "Constructor:\t" <<this<< endl;
 	}*/ //совместим 2 конструктора в один
-	explicit String(size_t size = 80) :size(size), str(new char[size]{})
-	{
-		//this->size = size; //при верхней форме записи эта строка уже не нужна
-		//this->str = new char[size] {};
-		cout << "DefConstructor:\t" << endl;
-	}
-	String(const char str[]) :String(strlen(str)+1)
-	{
-		//this->size = strlen(str) + 1; //посчитали размер
-		//this->str = new char[size] {};
-		//копируем полученную строку в выделенную:
-		for (int i = 0; i < size; i++)this->str[i] = str[i];
-		cout << "Constructor:\t" << endl;
-	}
-	String(const String& other) :String(other.str)   //Copy C-r
-	{
-		//this->size = other.size;
-		//this->str = new char[size] {};
-		//for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyConstructor:" << this << endl;
-	}
-	String(String&& other) :size(other.size), str(other.str)
-	{
-		//this->size = other.size;
-		//this->str = other.str;
-		other.size = 0;
-		other.str = nullptr;
-		cout << "MoveConstructor: " << this << endl;
-	}
-	~String()
-	{
-		delete[] this->str;
-		cout << "Destructor:\t" << endl;
-	}
+	explicit String(size_t size = 80);
+	String(const char str[]);
+	String(const String& other);
+	String(String&& other);
+	~String();
+
 	//      OPERATORS
-	String& operator=(const String& other)
-	{
-		if (this == &other)return *this;  //проверка на "дурака"
-		delete[] this->str;               //удаление предыдущих данных
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
-		cout << "CopyAssignment:\t" << this << endl;
-		return *this;
-	}
-	String& operator=(String&& other)
-	{
-		if (this == &other)return *this;
-		delete[] this->str;
-		this->size = other.size;
-		this->str = other.str;
-		other.size = 0;
-		other.str = nullptr;
-		cout << "MoveAssignment:\t" << this << endl;
-		return *this;
-	}
-	String& operator+=(const String& other)
-	{
-		return *this = *this + other;
-	}
-	char& operator[](int i)const  //i - index
-	{
-		return str[i];
-	}
+	String& operator=(const String& other);
+	String& operator=(String&& other);
+	String& operator+=(const String& other);
+	char operator[](int i)const;
+	char& operator[](int i);
 
 	//      METHODS
-	void print()const
-	{
-		cout << "size:\t" << size << endl;  //строка
-		cout << "str:\t" << str << endl;    //размер строки
-	}
+	void print()const;
 };
+
+const char* String::get_str() const
+{
+	return str;
+}
+char* String::get_str()
+{
+	return str;
+}
+std::size_t String::get_size()const
+{
+	return size;
+}
+
+//     CONSTRUCTORS:
+String::String(size_t size = 80) :size(size), str(new char[size] {})
+{
+	//this->size = size; //при верхней форме записи эта строка уже не нужна
+	//this->str = new char[size] {};
+	cout << "DefConstructor:\t" << endl;
+}
+String::String(const char str[]) :String(strlen(str) + 1)
+{
+	//this->size = strlen(str) + 1; //посчитали размер
+	//this->str = new char[size] {};
+	//копируем полученную строку в выделенную:
+	for (int i = 0; i < size; i++)this->str[i] = str[i];
+	cout << "Constructor:\t" << endl;
+}
+String::String(const String& other) :String(other.str)   //Copy C-r
+{
+	//this->size = other.size;
+	//this->str = new char[size] {};
+	//for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+	cout << "CopyConstructor:" << this << endl;
+}
+String::String(String&& other) :size(other.size), str(other.str)
+{
+	//this->size = other.size;
+	//this->str = other.str;
+	other.size = 0;
+	other.str = nullptr;
+	cout << "MoveConstructor: " << this << endl;
+}
+String::~String()
+{
+	delete[] this->str;
+	cout << "Destructor:\t" << endl;
+}
+//      OPERATORS
+String& String::operator=(const String& other)
+{
+	if (this == &other)return *this;  //проверка на "дурака"
+	delete[] this->str;               //удаление предыдущих данных
+	this->size = other.size;
+	this->str = new char[size] {};
+	for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+	cout << "CopyAssignment:\t" << this << endl;
+	return *this;
+}
+String& String::operator=(String&& other)
+{
+	if (this == &other)return *this;
+	delete[] this->str;
+	this->size = other.size;
+	this->str = other.str;
+	other.size = 0;
+	other.str = nullptr;
+	cout << "MoveAssignment:\t" << this << endl;
+	return *this;
+}
+String& String::operator+=(const String& other)
+{
+	return *this = *this + other;
+}
+char String::operator[](int i)const  //i - index
+{
+	return str[i];
+}
+char& String::operator[](int i) 
+{
+	return str[i];
+}
+
+//      METHODS
+void String::print()const
+{
+	cout << "size:\t" << size << endl;  //строка
+	cout << "str:\t" << str << endl;    //размер строки
+}
 
 String operator+(const String& left, const String& right)
 {
